@@ -1,0 +1,165 @@
+/* Variables couleurs EcoRide - Exactement comme Figma */
+:root {
+    --color-title: #18230F;
+    --color-primary: #2C3E20;
+    --color-text: #4A5A4A;
+    --color-text-light: #CEDEBD;
+    --color-secondary: rgba(67, 83, 52, 0.6); /* Background section eco*/
+    --color-green-logo: #809D3C;/* vert logo + couleur liens */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-text);
+    margin: 0;
+}
+
+
+/* Logo */
+.logo-eco {
+    color: #000;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.logo-ride {
+    color: var(--color-green-logo);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Navbar */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-title);
+    border-color: var(--color-title);
+}
+
+.btn-outline-primary {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Hero Section - Avec image de fond */
+.hero-section {
+    position: relative;
+    min-height: 600px;
+    background-image: url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Texte Hero - vert claire */
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+    padding: 0 30px;
+}
+
+.hero-text {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+}
+
+/* Carte recherche */
+.search-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-search {
+    padding: 12px;
+    font-weight: 500;
+    background-color: var(--color-primary);
+}
+
+.card-body{
+    padding: 0 10px;
+}
+
+/* Supprimer la bordure entre icône et input */
+.input-group-text {
+    border-right: 0 !important;
+}
+
+.input-group .form-control {
+    border-left: 0 !important;
+}
+
+/* Sections */
+.py-5 {
+    padding: 5rem 0 !important;
+    color: var(--color-title)
+}
+
+h2 {
+    color: var(--color-title);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding: 0 30px;
+}
+
+p{
+    text-align: justify;
+    padding: 0 30px;
+}
+
+/* Section background */
+.bg-light-green {
+    background-color: var(--color-secondary);
+    padding: 5rem 0;
+    margin: 36px;
+}
+
+/* Footer */
+.footer-eco {
+    background-color: rgba(24, 35, 15, 0.80);
+    
+}
+
+
+.footer-eco p {
+    color: var(--color-text-light);
+}

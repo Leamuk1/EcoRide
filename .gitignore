@@ -1,0 +1,22 @@
+# Fichiers de configuration sensibles
+.env
+
+# Dossier des uploads utilisateurs
+/public/uploads/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# Cache
+/cache/
+/tmp/
