@@ -176,13 +176,39 @@ Site déployé sur **AlwaysData** :
 
  **En développement**
 
-- [x] Structure de base
-- [x] Page d'accueil
-- [ ] Inscription / Connexion
+### ✅ Fonctionnalités terminées :
+- [x] Structure MVC (Model-View-Controller)
+- [x] Base de données MySQL (8 tables)
+- [x] MCD/MLD avec Looping
+- [x] Page d'accueil responsive (hero + 3 sections)
+- [x] Système d'inscription complet
+  - Validation des données (email, mots de passe)
+  - Vérification email unique
+  - Hashage bcrypt des mots de passe
+  - Pseudo auto-généré
+  - Checkbox CGU obligatoire
+  - Attribution 20 crédits à l'inscription
+- [x] Système de connexion sécurisé
+  - Vérification email/mot de passe
+  - Sessions PHP sécurisées
+  - Redirection après connexion
+- [x] Header dynamique (affichage selon état connecté)
+- [x] Système de déconnexion
+
+### 🔄 En cours de développement :
+- [ ] Page de profil utilisateur
+- [ ] Modification des informations personnelles
+
+### 📅 Prochaines étapes :
 - [ ] Recherche de trajets
-- [ ] Réservations
-- [ ] Espace conducteur
-- [ ] Espace admin
+- [ ] Affichage des résultats de recherche
+- [ ] Système de réservation
+- [ ] Gestion des crédits
+- [ ] Espace conducteur (création de trajets)
+- [ ] Gestion des véhicules
+- [ ] Système d'avis et notations
+- [ ] Dashboard administrateur
+- [ ] Statistiques et analytics
 
 ---
 
@@ -193,6 +219,24 @@ Formation : Graduate Développeur Web et Web Mobile
 Date : mars/avril 2026
 
 ---
+## 📋 Changelog
+
+### Version 0.2.0 - 16 novembre 2025
+**Authentification et sessions**
+- ✅ Page d'inscription avec validation complète
+- ✅ Page de connexion avec vérification bcrypt
+- ✅ Header dynamique selon état utilisateur
+- ✅ Système de déconnexion
+- ✅ Sessions sécurisées
+
+### Version 0.1.0 - 13 novembre 2025
+**Initialisation du projet**
+- ✅ Structure MVC
+- ✅ Base de données MySQL
+- ✅ Page d'accueil responsive
+- ✅ Charte graphique EcoRide
+
+---
 
 ## Licence
 
@@ -200,4 +244,4 @@ Projet réalisé dans un cadre pédagogique.
 
 ---
 
-*Dernière mise à jour : 15 novembre 2025*
+*Dernière mise à jour : 16 novembre 2025*
