@@ -43,12 +43,27 @@
                     </li>
                 </ul>
                 <div class="ms-3">
-                    <a href="#" class="btn btn-outline-primary me-2">
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <!-- Utilisateur connecté -->
+                        <span class="navbar-text me-3">
+                            <i class="fas fa-user-circle" style="color: var(--color-green-logo);"></i>
+                             Bonjour, <strong><?= htmlspecialchars($_SESSION['user_pseudo']) ?></strong>
+                        </span>
+                        <a href="profil.php" class="btn btn-outline-primary me-2">
+                            <i class="fas fa-user"></i> Mon profil
+                        </a>
+                        <a href="deconnexion.php" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    <?php else: ?>
+                        <!-- Utilisateur non connecté -->
+                    <a href="connexion.php" class="btn btn-outline-primary me-2">
                         <i class="fas fa-sign-in-alt"></i> Connexion
                     </a>
                     <a href="inscription.php" class="btn btn-primary">
                         <i class="fas fa-user-plus"></i> Inscription
                     </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
