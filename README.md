@@ -69,17 +69,14 @@ cp .env.example .env
 
 ## Comptes de test
 
-**Administrateur :**
-- Email : `admin@ecoride.fr`
-- Mot de passe : `Admin123!`
+Des comptes de démonstration sont disponibles après l'import de la base de données.
 
-**Utilisateur :**
-- Email : `user@ecoride.fr`
-- Mot de passe : `User123!`
+**Pour obtenir les identifiants :**
+Consultez le dossier d'évaluation ECF ou le fichier `sql/data.sql`.
 
-**Conducteur :**
-- Email : `driver@ecoride.fr`
-- Mot de passe : `Driver123!`
+**Note :** Pour des raisons de sécurité, les identifiants ne sont pas publiés dans ce README public.
+```
+
 
 ---
 
