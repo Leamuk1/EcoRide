@@ -46,7 +46,7 @@
                     <a href="#" class="btn btn-outline-primary me-2">
                         <i class="fas fa-sign-in-alt"></i> Connexion
                     </a>
-                    <a href="#" class="btn btn-primary">
+                    <a href="inscription.php" class="btn btn-primary">
                         <i class="fas fa-user-plus"></i> Inscription
                     </a>
                 </div>

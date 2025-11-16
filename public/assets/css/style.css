@@ -12,6 +12,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--color-text);
     margin: 0;
+    background-color: #F9F9F5;
 }
 
 
@@ -151,6 +152,51 @@ p{
     background-color: var(--color-secondary);
     padding: 5rem 0;
     margin: 36px;
+}
+
+/* Sous-titre inscription */
+.subtitle-inscription {
+    font-size: 1.2rem;
+}
+
+/* Liens dans les formulaires inscription/connexion */
+.card-body p a {
+    color: var(--color-green-logo);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.card-body p a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* Checkbox personnalisée */
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+.form-check-label a {
+    color: var(--color-green-logo);
+    text-decoration: none;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline;
+    color: var(--color-primary);
+}
+
+/* Info crédits */
+.alert-info {
+    background-color: rgba(206, 222, 189, 0.3);
+    border: 1px solid var(--color-secondary);
+    color: var(--color-title);
+    border-radius: 8px;
+}
+
+.alert-info i {
+    color: var(--color-green-logo);
+    font-size: 1.2rem;
 }
 
 /* Footer */
