@@ -74,9 +74,10 @@ Des comptes de démonstration sont disponibles après l'import de la base de don
 **Pour obtenir les identifiants :**
 Consultez le dossier d'évaluation ECF ou le fichier `sql/data.sql`.
 
-**Note :** Pour des raisons de sécurité, les identifiants ne sont pas publiés dans ce README public.
-```
+**Création manuelle d'un compte :**
+Utilisez le formulaire d'inscription disponible sur le site.
 
+**Note :** Pour des raisons de sécurité, les identifiants ne sont pas publiés dans ce README public.
 
 ---
 
@@ -98,16 +99,33 @@ Consultez le dossier d'évaluation ECF ou le fichier `sql/data.sql`.
 ecoride/
 ├── public/
 │   ├── index.php
+│   ├── inscription.php
+│   ├── connexion.php
+│   ├── profil.php
+│   ├── deconnexion.php
+│   ├── uploads/
+│   │   └── avatars/
 │   └── assets/
 │       ├── css/
 │       ├── js/
 │       └── images/
 ├── src/
 │   ├── Config/
+│   │   └── Database.php
 │   ├── Controller/
 │   ├── Model/
 │   └── View/
+│       ├── layout/
+│       │   ├── header.php
+│       │   └── footer.php
+│       └── pages/
+│           ├── home.php
+│           ├── inscription.php
+│           ├── connexion.php
+│           └── profil.php
 ├── sql/
+│   ├── schema.sql
+│   └── data.sql
 ├── .env
 ├── .gitignore
 └── README.md
@@ -120,31 +138,39 @@ ecoride/
 - Requêtes préparées PDO (injection SQL)
 - `htmlspecialchars()` (protection XSS)
 - `password_hash()` avec bcrypt
-- Tokens CSRF
-- Sessions sécurisées
-- Validation Type MIME (uploads)
+- Sessions sécurisées avec timeout (30 minutes)
+- `session_regenerate_id()` à la connexion
+- Validation Type MIME pour uploads
+- Vérification taille fichiers (max 2MB)
+- Protection des pages privées
 
 ---
 
 ## Fonctionnalités
 
 ### Visiteurs
-- Recherche de trajets
-- Consultation des détails
+- Consultation de la page d'accueil
+- Recherche de trajets (à venir)
 
-### Utilisateurs
-- Inscription / Connexion
-- Réservation de places
-- Système de crédits
-- Historique des trajets
-- Évaluation des conducteurs
+### Utilisateurs connectés
+- **Inscription** avec validation complète
+  - Checkbox CGU obligatoire
+  - Attribution automatique de 20 crédits
+- **Connexion** sécurisée
+- **Profil utilisateur**
+  - Modification des informations personnelles
+  - Changement de mot de passe
+  - Upload photo de profil (JPG/PNG, max 2MB)
+  - Avatar avec initiales par défaut
+  - Affichage du solde de crédits
+- **Déconnexion** avec destruction de session
 
-### Conducteurs
+### Conducteurs (à venir)
 - Création de trajets
 - Gestion des véhicules
 - Définition des préférences
 
-### Administrateur
+### Administrateur (à venir)
 - Dashboard statistiques
 - Modération des avis
 - Gestion des utilisateurs
@@ -176,7 +202,7 @@ Site déployé sur **AlwaysData** :
 
  **En développement**
 
-### ✅ Fonctionnalités terminées :
+### Fonctionnalités terminées :
 - [x] Structure MVC (Model-View-Controller)
 - [x] Base de données MySQL (8 tables)
 - [x] MCD/MLD avec Looping
@@ -191,19 +217,30 @@ Site déployé sur **AlwaysData** :
 - [x] Système de connexion sécurisé
   - Vérification email/mot de passe
   - Sessions PHP sécurisées
+  - `session_regenerate_id()`
+  - Timeout session (30 minutes)
   - Redirection après connexion
 - [x] Header dynamique (affichage selon état connecté)
+  - Avatar avec photo ou initiales
+  - Boutons adaptés (connexion/profil)
+- [x] Page de profil utilisateur
+  - Modification informations personnelles
+  - Changement de mot de passe (optionnel)
+  - Upload photo de profil (validation MIME, max 2MB)
+  - Avatar avec initiales par défaut
+  - Affichage solde de crédits
+  - Optimisation : données en session
 - [x] Système de déconnexion
 
-### 🔄 En cours de développement :
-- [ ] Page de profil utilisateur
-- [ ] Modification des informations personnelles
+### En cours de développement :
+- [ ] Page de recherche de trajets
 
-### 📅 Prochaines étapes :
-- [ ] Recherche de trajets
+### Prochaines étapes :
 - [ ] Affichage des résultats de recherche
+- [ ] Détails d'un trajet
 - [ ] Système de réservation
-- [ ] Gestion des crédits
+- [ ] Gestion des crédits (déduction/ajout)
+- [ ] Historique des trajets
 - [ ] Espace conducteur (création de trajets)
 - [ ] Gestion des véhicules
 - [ ] Système d'avis et notations
@@ -220,6 +257,14 @@ Date : mars/avril 2026
 
 ---
 ## 📋 Changelog
+
+### Version 0.3.0 - 16 novembre 2025
+**Profil utilisateur et optimisations**
+- ✅ Page de profil avec modification informations
+- ✅ Upload photo de profil (validation MIME, max 2MB)
+- ✅ Avatar avec initiales par défaut
+- ✅ Timeout session (30 minutes)
+- ✅ Optimisation : stockage données utilisateur en   session
 
 ### Version 0.2.0 - 16 novembre 2025
 **Authentification et sessions**
