@@ -21,6 +21,20 @@
     <link rel="icon" type="image/png" href="assets/images/EcoRide Favicon.png">
 </head>
 <body>
+    <?php
+// Vérification du timeout de session (30 minutes)
+if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
+        // Session expirée
+        session_unset();
+        session_destroy();
+        header('Location: connexion.php');
+        exit;
+    }
+    // Mettre à jour le timestamp
+    $_SESSION['last_activity'] = time();
+}
+?>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
@@ -44,18 +58,24 @@
                 </ul>
                 <div class="ms-3">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <!-- Utilisateur connecté -->
-                        <span class="navbar-text me-3">
-                            <i class="fas fa-user-circle" style="color: var(--color-green-logo);"></i>
-                             Bonjour, <strong><?= htmlspecialchars($_SESSION['user_pseudo']) ?></strong>
-                        </span>
-                        <a href="profil.php" class="btn btn-outline-primary me-2">
-                            <i class="fas fa-user"></i> Mon profil
-                        </a>
-                        <a href="deconnexion.php" class="btn btn-primary">
-                            <i class="fas fa-sign-out-alt"></i> Déconnexion
-                        </a>
-                    <?php else: ?>
+    <!-- Utilisateur connecté -->
+    <span class="navbar-text me-3 d-flex align-items-center">
+    <?php if (!empty($_SESSION['user_photo']) && file_exists(__DIR__ . '/../../../public/uploads/avatars/' . $_SESSION['user_photo'])): ?>
+        <img src="uploads/avatars/<?= htmlspecialchars($_SESSION['user_photo']) ?>" alt="Photo de profil" class="avatar-header me-2">
+    <?php else: ?>
+        <div class="avatar-header-initials me-2">
+            <?= strtoupper(substr($_SESSION['user_prenom'] ?? '', 0, 1) . substr($_SESSION['user_nom'] ?? '', 0, 1)) ?>
+        </div>
+    <?php endif; ?>
+    Bonjour, <strong><?= htmlspecialchars($_SESSION['user_pseudo']) ?></strong>
+</span>
+    <a href="profil.php" class="btn btn-outline-primary me-2">
+        <i class="fas fa-user"></i> Mon profil
+    </a>
+    <a href="deconnexion.php" class="btn btn-primary">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+    </a>
+<?php else: ?>
                         <!-- Utilisateur non connecté -->
                     <a href="connexion.php" class="btn btn-outline-primary me-2">
                         <i class="fas fa-sign-in-alt"></i> Connexion

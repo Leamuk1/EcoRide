@@ -27,6 +27,15 @@ if ($_POST) {
         $_SESSION['user_pseudo'] = $user['pseudo'];
         $_SESSION['is_driver'] = $user['is_driver'];
         $_SESSION['is_admin'] = $user['is_admin'];
+        $_SESSION['user_photo'] = $user['photo_profil'];
+        $_SESSION['user_prenom'] = $user['prenom'];
+        $_SESSION['user_nom'] = $user['nom'];
+
+        // Régénérer l'ID de session pour plus de sécurité
+session_regenerate_id(true);
+
+// Définir le timestamp de dernière activité
+$_SESSION['last_activity'] = time();
         
         // Redirection vers l'accueil
         header('Location: index.php');
