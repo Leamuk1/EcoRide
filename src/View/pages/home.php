@@ -7,13 +7,13 @@
                 <div class="card search-card p-4">
                     <div class ="card-body">
                       <h3 class="mb-4">Rechercher un trajet</h3>
-                      <form>
+                      <form method="GET" action="recherche.php">
                         <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text bg-white border-end-0">
                                     <i class="fa-solid fa-record-vinyl input-icon"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Ville de départ" required>
+                                <input type="text" class="form-control" name="depart" placeholder="Ville de départ" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -21,7 +21,7 @@
                                 <span class="input-group-text bg-white border-end-0">
                                     <i class="fas fa-map-marker-alt input-icon"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Ville d'arrivée" required>
+                                <input type="text" class="form-control" name="arrivee" placeholder="Ville d'arrivée" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -29,7 +29,7 @@
                                 <span class="input-group-text bg-white border-end-0">
                                     <i class="fas fa-calendar-alt input-icon"></i>
                                 </span>
-                            <input type="date" class="form-control" required>
+                            <input type="date" class="form-control" name="date" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -37,7 +37,7 @@
                                 <span class="input-group-text bg-white border-end-0">
                                     <i class="fa-solid fa-user input-icon"></i>
                                 </span>
-                            <input type="number" class="form-control" placeholder="Nombre de passagers" min="1" value="1" required>
+                            <input type="number" class="form-control" name="passagers" placeholder="Nombre de passagers" min="1" value="1" required>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 btn-search">Rechercher</button>

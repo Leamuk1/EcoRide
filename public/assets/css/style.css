@@ -298,6 +298,41 @@ p{
     gap: 0.5rem;
 }
 
+/* Page de recherche de trajets */
+.trajet-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.trajet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
+}
+
+.avatar-trajet {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-green-logo);
+}
+
+.avatar-trajet-initials {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-green-logo));
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-green-logo);
+    margin: 0 auto;
+}
+
 /* Footer */
 .footer-eco {
     background-color: rgba(24, 35, 15, 0.80);

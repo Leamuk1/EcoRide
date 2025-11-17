@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Favicon EcoRide -->
-    <link rel="icon" type="image/png" href="assets/images/EcoRide Favicon.png">
+    <link rel="icon" type="image/png" href="assets/images/Ecoride Favicon.png">
 </head>
 <body>
     <?php
@@ -47,10 +47,10 @@ if (isset($_SESSION['user_id'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/ecoride/public/index.php">Accueil</a>
+                        <a class="nav-link" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Covoiturages</a>
+                        <a class="nav-link" href="recherche.php">Covoiturages</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
