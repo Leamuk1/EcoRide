@@ -102,6 +102,7 @@ ecoride/
 │   ├── inscription.php
 │   ├── connexion.php
 │   ├── profil.php
+|   ├── recherche.php
 │   ├── deconnexion.php
 │   ├── uploads/
 │   │   └── avatars/
@@ -122,7 +123,8 @@ ecoride/
 │           ├── home.php
 │           ├── inscription.php
 │           ├── connexion.php
-│           └── profil.php
+│           ├── profil.php
+|           └── recherche.php
 ├── sql/
 │   ├── schema.sql
 │   └── data.sql
@@ -143,6 +145,7 @@ ecoride/
 - Validation Type MIME pour uploads
 - Vérification taille fichiers (max 2MB)
 - Protection des pages privées
+- Optimisation: donnée utilisateur en session
 
 ---
 
@@ -156,14 +159,23 @@ ecoride/
 - **Inscription** avec validation complète
   - Checkbox CGU obligatoire
   - Attribution automatique de 20 crédits
+  - Pseudo auto-généré
 - **Connexion** sécurisée
+  - Timeout automatique (30 minutes)
+  - Sessions sécurisées
 - **Profil utilisateur**
   - Modification des informations personnelles
   - Changement de mot de passe
   - Upload photo de profil (JPG/PNG, max 2MB)
   - Avatar avec initiales par défaut
   - Affichage du solde de crédits
+  - **Recherche de trajets**
+  - Formulaire de recherche (départ, arrivée, date, passagers)
+  - Affichage des résultats avec filtres
+  - Informations détaillées : conducteur, véhicule, places, prix
+  - Avatar conducteur (photo ou initiales)
 - **Déconnexion** avec destruction de session
+
 
 ### Conducteurs (à venir)
 - Création de trajets
@@ -230,14 +242,21 @@ Site déployé sur **AlwaysData** :
   - Avatar avec initiales par défaut
   - Affichage solde de crédits
   - Optimisation : données en session
+- [x] Page de recherche de trajets
+  - Formulaire de recherche (départ, arrivée, date, passagers)
+  - Requête SQL avec jointures (utilisateur, voiture, marque)
+  - Affichage des résultats avec cartes Bootstrap
+  - Calcul des places restantes
+  - Filtrage par statut ("en_attente")
+  - Avatar conducteur avec photo ou initiales
+  - Informations complètes : véhicule, horaires, prix
+  - Message si aucun résultat
 - [x] Système de déconnexion
 
 ### En cours de développement :
 - [ ] Page de recherche de trajets
 
 ### Prochaines étapes :
-- [ ] Affichage des résultats de recherche
-- [ ] Détails d'un trajet
 - [ ] Système de réservation
 - [ ] Gestion des crédits (déduction/ajout)
 - [ ] Historique des trajets
@@ -257,6 +276,16 @@ Date : mars/avril 2026
 
 ---
 ## 📋 Changelog
+
+### Version 0.4.0 - 16 novembre 2025
+**Recherche de trajets**
+- ✅ Page de recherche avec formulaire
+- ✅ Affichage des résultats de recherche
+- ✅ Requête SQL avec jointures multiples
+- ✅ Calcul des places disponibles
+- ✅ Filtrage par statut de trajet
+- ✅ Avatar conducteur (photo ou initiales)
+- ✅ Carte de trajet avec animations hover
 
 ### Version 0.3.0 - 16 novembre 2025
 **Profil utilisateur et optimisations**
