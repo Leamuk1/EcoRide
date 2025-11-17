@@ -333,6 +333,77 @@ p{
     margin: 0 auto;
 }
 
+/* Page détails du trajet */
+.avatar-trajet-detail {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-green-logo);
+    margin: 0 auto;
+    display: block;
+}
+
+.avatar-trajet-detail-initials {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-green-logo));
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--color-green-logo);
+    margin: 0 auto;
+}
+
+.trajet-detail-card {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Marge entre les cartes de trajets */
+.trajet-card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+   
+}
+
+.breadcrumb-item a {
+    color: var(--color-green-logo);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* Badge écologique */
+.badge.bg-success {
+    background-color: var(--color-green-logo) !important;
+    font-size: 0.85rem;
+}
+
+/* Cartes de suggestions */
+.suggestion-card {
+    border-left: 4px solid var(--color-green-logo);
+    background-color: #f8f9fa;
+}
+
+.suggestion-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.suggestion-card .card-body {
+    position: relative;
+}
+
 /* Footer */
 .footer-eco {
     background-color: rgba(24, 35, 15, 0.80);
