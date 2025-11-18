@@ -20,22 +20,23 @@ if ($_POST) {
     
     // Vérifier le mot de passe
     if ($user && password_verify($password, $user['password'])) {
-        // Connexion réussie
+        // Régénérer l'ID de session pour plus de sécurité
+        session_regenerate_id(true);
+        
+        // Connexion réussie - Créer les variables de session
         $_SESSION['user_id'] = $user['id_utilisateur'];
         $_SESSION['user_name'] = $user['prenom'] . ' ' . $user['nom'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_pseudo'] = $user['pseudo'];
-        $_SESSION['is_driver'] = $user['is_driver'];
-        $_SESSION['is_admin'] = $user['is_admin'];
-        $_SESSION['user_photo'] = $user['photo_profil'];
         $_SESSION['user_prenom'] = $user['prenom'];
         $_SESSION['user_nom'] = $user['nom'];
-
-        // Régénérer l'ID de session pour plus de sécurité
-session_regenerate_id(true);
-
-// Définir le timestamp de dernière activité
-$_SESSION['last_activity'] = time();
+        $_SESSION['user_photo'] = $user['photo_profil'];
+        $_SESSION['user_credits'] = $user['credits'];
+        $_SESSION['is_driver'] = $user['is_driver'];
+        $_SESSION['is_admin'] = $user['is_admin'];
+        
+        // Définir le timestamp de dernière activité
+        $_SESSION['last_activity'] = time();
         
         // Redirection vers l'accueil
         header('Location: index.php');

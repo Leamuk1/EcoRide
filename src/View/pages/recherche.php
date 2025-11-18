@@ -248,11 +248,20 @@
                     <div class="row">
                         <?php foreach ($suggestions as $trajet): ?>
                             <div class="col-md-12 mb-4">
-                                <div class="card trajet-card shadow-sm suggestion-card">
+                                <div class="card trajet-card shadow-sm suggestion-card" style="position: relative;">
                                     <!-- Badge suggestion -->
+<!-- Badge suggestion -->
 <div class="suggestion-badge">
     <?php if (stripos($trajet['lieu_depart'], $ville_depart) !== false && stripos($trajet['lieu_arrivee'], $ville_arrivee) !== false): ?>
-        <!-- Même trajet, date différente : pas de badge -->
+        <!-- Même trajet, date différente : afficher l'écart -->
+        <span class="badge bg-info">
+            <i class="fas fa-calendar-alt me-1"></i>
+            <?php if ($trajet['ecart_jours'] < 0): ?>
+                <?= abs($trajet['ecart_jours']) ?> jour<?= abs($trajet['ecart_jours']) > 1 ? 's' : '' ?> avant
+            <?php elseif ($trajet['ecart_jours'] > 0): ?>
+                <?= $trajet['ecart_jours'] ?> jour<?= $trajet['ecart_jours'] > 1 ? 's' : '' ?> après
+            <?php endif; ?>
+        </span>
     <?php elseif (stripos($trajet['lieu_depart'], $ville_depart) !== false): ?>
         <span class="badge bg-success">
             <i class="fas fa-map-marker-alt me-1"></i>

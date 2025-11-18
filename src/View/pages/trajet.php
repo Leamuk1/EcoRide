@@ -49,11 +49,13 @@
                             </p>
                             <p class="mb-0">
     <strong>Énergie :</strong> 
-    <span class="badge bg-success"><?= ucfirst($trajet['energie']) ?></span>
     <?php if (in_array($trajet['energie'], ['electrique', 'hybride'])): ?>
-        <span class="badge bg-success ms-2">
-            <i class="fas fa-leaf me-1"></i>Écologique
+        <span class="badge bg-success">
+            <i class="fas fa-leaf me-1"></i>
+            <?= ucfirst($trajet['energie']) ?> - Écologique
         </span>
+    <?php else: ?>
+        <span class="badge bg-secondary"><?= ucfirst($trajet['energie']) ?></span>
     <?php endif; ?>
 </p>
                         </div>
@@ -124,44 +126,85 @@
                     </p>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <?php if ($trajet['places_restantes'] > 0): ?>
-                            <?php if ($trajet['id_utilisateur'] != $_SESSION['user_id']): ?>
-                                <form method="POST" action="reserver.php">
-                                    <input type="hidden" name="id_trajet" value="<?= $trajet['id_covoiturage'] ?>">
-                                    
-                                    <div class="mb-3">
-                                        <label class="form-label">Nombre de places</label>
-                                        <select class="form-select" name="nb_places" required>
-                                            <?php for ($i = 1; $i <= min(3, $trajet['places_restantes']); $i++): ?>
-                                                <option value="<?= $i ?>"><?= $i ?> place<?= $i > 1 ? 's' : '' ?></option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-check-circle me-2"></i>Réserver ce trajet
-                                    </button>
-                                </form>
-                            <?php else: ?>
-                                <div class="alert alert-info text-center">
-                                    <i class="fas fa-info-circle me-2"></i>
-                                    C'est votre trajet
-                                </div>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <div class="alert alert-warning text-center">
-                                <i class="fas fa-exclamation-triangle me-2"></i>
-                                Complet
-                            </div>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <a href="connexion.php" class="btn btn-outline-primary w-100 mb-2">
-                            <i class="fas fa-sign-in-alt me-2"></i>Connexion
-                        </a>
-                        <a href="inscription.php" class="btn btn-primary w-100">
-                            <i class="fas fa-user-plus me-2"></i>Inscription
-                        </a>
-                    <?php endif; ?>
+    <?php if ($trajet['places_restantes'] > 0): ?>
+        <?php if ($trajet['id_utilisateur'] != $_SESSION['user_id']): ?>
+            <?php 
+            // Calculer le coût pour 1 place
+            $cout_une_place = $trajet['prix_credit'];
+            $credits_utilisateur = $_SESSION['user_credits'] ?? 0;
+            $peut_reserver = $credits_utilisateur >= $cout_une_place;
+            ?>
+            
+            <?php if ($peut_reserver): ?>
+                <!-- Formulaire de réservation -->
+                <form method="POST" action="reserver.php">
+                    <input type="hidden" name="id_trajet" value="<?= $trajet['id_covoiturage'] ?>">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de places</label>
+                        <select class="form-select" name="nb_places" required>
+                            <?php 
+                            $max_places_budget = floor($credits_utilisateur / $trajet['prix_credit']);
+                            $max_places = min(3, $trajet['places_restantes'], $max_places_budget);
+                            ?>
+                            <?php for ($i = 1; $i <= $max_places; $i++): ?>
+                                <option value="<?= $i ?>">
+                                    <?= $i ?> place<?= $i > 1 ? 's' : '' ?> 
+                                    (<?= $i * $trajet['prix_credit'] ?> crédits)
+                                </option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-check-circle me-2"></i>Réserver ce trajet
+                    </button>
+                </form>
+                
+                <!-- Info crédits -->
+                <div class="alert alert-info mt-3 text-center">
+                    <small>
+                        <i class="fas fa-wallet me-1"></i>
+                        Vous avez <strong><?= $credits_utilisateur ?> crédits</strong>
+                    </small>
+                </div>
+            <?php else: ?>
+                <!-- Pas assez de crédits -->
+                <div class="alert alert-danger text-center">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Crédits insuffisants</strong>
+                    <p class="mb-2 mt-2">
+                        Ce trajet coûte <strong><?= $cout_une_place ?> crédits</strong> par place.<br>
+                        Vous avez <strong><?= $credits_utilisateur ?> crédits</strong>.
+                    </p>
+                    <small class="text-muted">
+                        💡 Proposez un trajet pour gagner des crédits !
+                    </small>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <!-- C'est son propre trajet -->
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle me-2"></i>
+                C'est votre trajet
+            </div>
+        <?php endif; ?>
+    <?php else: ?>
+        <!-- Trajet complet -->
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Complet
+        </div>
+    <?php endif; ?>
+<?php else: ?>
+    <!-- Non connecté -->
+    <a href="connexion.php" class="btn btn-outline-primary w-100 mb-2">
+        <i class="fas fa-sign-in-alt me-2"></i>Connexion
+    </a>
+    <a href="inscription.php" class="btn btn-primary w-100">
+        <i class="fas fa-user-plus me-2"></i>Inscription
+    </a>
+<?php endif; ?>
                 </div>
             </div>
         </div>

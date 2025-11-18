@@ -68,8 +68,19 @@ if ($_POST) {
     ]);
     
     if ($success) {
-        $_SESSION['success'] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
-        header('Location: connexion.php');
+        // Récupérer l'ID du nouvel utilisateur
+        $user_id = $pdo->lastInsertId();
+        
+        // Connecter automatiquement l'utilisateur
+        session_regenerate_id(true);
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['user_pseudo'] = $pseudo;
+        $_SESSION['user_prenom'] = $prenom;
+        $_SESSION['user_credits'] = 20; // IMPORTANT : Initialiser les crédits
+        $_SESSION['user_photo'] = null;
+        
+        $_SESSION['success'] = "Bienvenue sur EcoRide ! Vous avez reçu 20 crédits de bienvenue.";
+        header('Location: index.php');
         exit;
     } else {
         $_SESSION['error'] = "Erreur lors de l'inscription.";
