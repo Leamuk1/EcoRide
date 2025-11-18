@@ -87,7 +87,7 @@ if ($datetime_depart > $now) {
                                     </div>
 
                                     <!-- Actions -->
-                                    <div class="col-md-4 text-end">
+                                    <div class="col-md-4 text-end details-reservation">
                                         <?php if ($heures_restantes > 0): ?>
                                             <div class="alert alert-info mb-3 card-alert-info">
                                                 <small class="text-alert-info">
