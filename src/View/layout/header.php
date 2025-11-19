@@ -105,6 +105,11 @@ if (isset($_SESSION['user_id'])) {
                 </a>
             </li>
             <li>
+    <a class="dropdown-item" href="mes-vehicules.php">
+        <i class="fas fa-car me-2"></i>Mes véhicules
+    </a>
+</li>
+            <li>
                 <a class="dropdown-item" href="mes-reservations.php">
                     <i class="fas fa-ticket-alt me-2"></i>Mes réservations
                 </a>

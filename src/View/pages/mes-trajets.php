@@ -47,6 +47,12 @@
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <div class="row align-items-center">
+                                    <!-- Badge statut -->
+<?php if ($trajet['statut'] == 'en_cours'): ?>
+    <span class="badge bg-success mb-2">
+        <i class="fas fa-spinner fa-spin me-1"></i>En cours
+    </span>
+<?php endif; ?>
                                     <!-- Infos trajet -->
                                     <div class="col-md-6">
                                         <h5 class="mb-2">

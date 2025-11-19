@@ -193,33 +193,84 @@
                 </div>
             </div>
 
-            <!-- Actions -->
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <a href="mes-trajets.php" class="btn btn-outline-secondary w-100 mb-2">
-                        <i class="fas fa-arrow-left me-2"></i>Retour à mes trajets
-                    </a>
-                    
-                    <?php if ($trajet['statut'] == 'en_attente'): ?>
-                        <?php if ($trajet['nb_reservations'] > 0): ?>
-                            <button type="button" class="btn btn-danger w-100" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#modalAnnulation">
-                                <i class="fas fa-times-circle me-2"></i>Annuler le trajet
-                            </button>
-                        <?php else: ?>
-                            <form method="POST" action="supprimer-trajet.php">
-                                <input type="hidden" name="id_trajet" value="<?= $trajet['id_covoiturage'] ?>">
-                                <button type="submit" class="btn btn-danger w-100" 
-                                        onclick="return confirm('Supprimer ce trajet ?')">
-                                    <i class="fas fa-trash me-2"></i>Supprimer le trajet
-                                </button>
-                            </form>
-                        <?php endif; ?>
-                    <?php endif; ?>
+           <!-- Actions -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <a href="mes-trajets.php" class="btn btn-outline-secondary w-100 mb-2">
+            <i class="fas fa-arrow-left me-2"></i>Retour à mes trajets
+        </a>
+        
+        <?php
+        // Calculer si le trajet peut être démarré (dans les 2h avant le départ)
+        $datetime_depart = new DateTime($trajet['datetime_depart']);
+        $now = new DateTime();
+        $interval = $now->diff($datetime_depart);
+        $heures_avant_depart = ($interval->days * 24) + $interval->h;
+        $peut_demarrer = ($heures_avant_depart <= 2 && $datetime_depart > $now);
+        ?>
+        
+        <?php if ($trajet['statut'] == 'en_attente'): ?>
+            <!-- Trajet en attente -->
+            <?php if ($peut_demarrer && $trajet['nb_reservations'] > 0): ?>
+                <!-- Bouton Démarrer -->
+                <button type="button" class="btn btn-success w-100 mb-2" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#modalDemarrer">
+                    <i class="fas fa-play-circle me-2"></i>Démarrer le trajet
+                </button>
+            <?php elseif ($heures_avant_depart > 2): ?>
+                <!-- Trop tôt pour démarrer -->
+                <div class="alert alert-info mb-2">
+                    <small>
+                        <i class="fas fa-info-circle me-1"></i>
+                        Vous pourrez démarrer le trajet 2h avant le départ
+                    </small>
                 </div>
+            <?php endif; ?>
+            
+            <?php if ($trajet['nb_reservations'] > 0): ?>
+                <button type="button" class="btn btn-danger w-100" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#modalAnnulation">
+                    <i class="fas fa-times-circle me-2"></i>Annuler le trajet
+                </button>
+            <?php else: ?>
+                <form method="POST" action="supprimer-trajet.php">
+                    <input type="hidden" name="id_trajet" value="<?= $trajet['id_covoiturage'] ?>">
+                    <button type="submit" class="btn btn-danger w-100" 
+                            onclick="return confirm('Supprimer ce trajet ?')">
+                        <i class="fas fa-trash me-2"></i>Supprimer le trajet
+                    </button>
+                </form>
+            <?php endif; ?>
+            
+        <?php elseif ($trajet['statut'] == 'en_cours'): ?>
+            <!-- Trajet en cours -->
+            <div class="alert alert-success mb-2">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                <strong>Trajet en cours</strong>
             </div>
-        </div>
+            
+            <button type="button" class="btn btn-primary w-100" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#modalTerminer">
+                <i class="fas fa-flag-checkered me-2"></i>Terminer le trajet
+            </button>
+            
+        <?php elseif ($trajet['statut'] == 'termine'): ?>
+            <!-- Trajet terminé -->
+            <div class="alert alert-secondary">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Trajet terminé</strong>
+            </div>
+            
+        <?php else: ?>
+            <!-- Trajet annulé -->
+            <div class="alert alert-danger">
+                <i class="fas fa-times-circle me-2"></i>
+                <strong>Trajet annulé</strong>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -274,4 +325,99 @@
             </div>
         </div>
     </div>
+    <!-- Modal Démarrer le trajet -->
+<div class="modal fade" id="modalDemarrer" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-play-circle me-2"></i>
+                    Démarrer le trajet
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-4">
+                    <i class="fas fa-car fa-3x text-success"></i>
+                </div>
+                
+                <h5 class="mb-3">Êtes-vous prêt à partir ?</h5>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>En démarrant le trajet :</strong>
+                    <ul class="text-start mb-0 mt-2">
+                        <li>Les passagers ne pourront plus annuler leur réservation</li>
+                        <li>Le trajet passera en statut "En cours"</li>
+                        <li>Vous pourrez le terminer à l'arrivée</li>
+                    </ul>
+                </div>
+                
+                <p class="mb-0">
+                    <strong>Passagers confirmés :</strong> <?= $trajet['nb_reservations'] ?><br>
+                    <strong>Places réservées :</strong> <?= $trajet['places_reservees'] ?>
+                </p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Annuler
+                </button>
+                <form method="POST" action="demarrer-trajet.php" class="d-inline">
+                    <input type="hidden" name="id_trajet" value="<?= $trajet['id_covoiturage'] ?>">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-play-circle me-2"></i>Démarrer maintenant
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Terminer le trajet -->
+<div class="modal fade" id="modalTerminer" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-flag-checkered me-2"></i>
+                    Terminer le trajet
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-4">
+                    <i class="fas fa-flag-checkered fa-3x text-primary"></i>
+                </div>
+                
+                <h5 class="mb-3">Félicitations ! 🎉</h5>
+                
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>En terminant le trajet :</strong>
+                    <ul class="text-start mb-0 mt-2">
+                        <li>Le trajet sera marqué comme "Terminé"</li>
+                        <li>Vos crédits sont définitivement gagnés</li>
+                        <li>Les passagers pourront vous noter (prochainement)</li>
+                    </ul>
+                </div>
+                
+                <p class="mb-0" style="color: var(--color-green-logo); font-size: 1.5rem;">
+                    <i class="fas fa-coins me-2"></i>
+                    <strong>+<?= ($trajet['prix_credit'] * $trajet['places_reservees']) ?> crédits</strong>
+                </p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Pas encore
+                </button>
+                <form method="POST" action="terminer-trajet.php" class="d-inline">
+                    <input type="hidden" name="id_trajet" value="<?= $trajet['id_covoiturage'] ?>">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-flag-checkered me-2"></i>Terminer le trajet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <?php endif; ?>

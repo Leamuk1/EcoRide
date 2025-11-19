@@ -14,7 +14,7 @@ $db = new Database();
 $pdo = $db->connect();
 $id_utilisateur = $_SESSION['user_id'];
 
-// Récupérer les trajets à venir
+// Récupérer les trajets à venir ET en cours
 $sql_avenir = "SELECT 
                 c.*,
                 v.modele,
@@ -29,8 +29,8 @@ $sql_avenir = "SELECT
             INNER JOIN marque m ON v.id_marque = m.id_marque
             LEFT JOIN participe p ON c.id_covoiturage = p.id_covoiturage AND p.statut = 'confirmee'
             WHERE c.id_utilisateur = :id_user
-            AND c.statut = 'en_attente'
-            AND CONCAT(c.date_depart, ' ', c.heure_depart) >= NOW()
+            AND c.statut IN ('en_attente', 'en_cours')
+            AND CONCAT(c.date_depart, ' ', c.heure_depart) >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
             GROUP BY c.id_covoiturage
             ORDER BY c.date_depart ASC, c.heure_depart ASC";
 
